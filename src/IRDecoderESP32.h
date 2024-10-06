@@ -1,19 +1,26 @@
-// Freenove_IR_Lib_for_ESP32.h
-/**
- * Brief	An Arduino library for IR remote receive on ESP32.
- * Author	ZhentaoLin
- * Company	Freenove
- * Date		2024-06-28
- */
+/*                                                     https://oshwlab.com/ratti3
+  _|_|_|                _|      _|      _|  _|_|_|     https://youtube.com/@Ratti3
+  _|    _|    _|_|_|  _|_|_|_|_|_|_|_|            _|   https://projecthub.arduino.cc/Ratti3
+  _|_|_|    _|    _|    _|      _|      _|    _|_|     https://ratti3.blogspot.com
+  _|    _|  _|    _|    _|      _|      _|        _|   https://hackaday.io/Ratti3
+  _|    _|    _|_|_|      _|_|    _|_|  _|  _|_|_|     https://www.hackster.io/Ratti3
+													   https://github.com/Ratti3
 
-#ifndef _FREENOVE_IR_LIB_FOR_ESP32_h
-#define _FREENOVE_IR_LIB_FOR_ESP32_h
+Code forked from https://github.com/Freenove/Freenove_IR_Lib_for_ESP32
 
-#if defined(ARDUINO) && ARDUINO >= 100
+This file is part of https://github.com/Ratti3/IR_Decoder_for_ESP32
+
+IR_Decoder_for_ESP32 is free software: you can redistribute it and/or modify it under the terms of the
+GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+IR_Decoder_for_ESP32 is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+You should have received a copy of the GNU General Public License along with IR_Decoder_for_ESP32. If not, see <https://www.gnu.org/licenses/>.
+*/
+
+#ifndef _IRDECODERESP32_h
+#define _IRDECODERESP32_h
+
 #include <Arduino.h>
-#else
-#include "WProgram.h"
-#endif
 
 #include "driver/rmt_rx.h"
 #include "driver/rmt_encoder.h"
@@ -43,7 +50,7 @@ typedef struct {
 } ir_recv_t;
 
 enum ir_protocol_type {
-	UNK, 
+	UNK,
 	NEC,
 	NEC_REP,
 	SONY,
@@ -52,11 +59,11 @@ enum ir_protocol_type {
 	PROTO_COUNT 
 };
 	
-class Freenove_ESP32_IR_Recv
+class IRDecoderESP32
 {
 public:
-	Freenove_ESP32_IR_Recv(uint8_t pin);
-	virtual ~Freenove_ESP32_IR_Recv(void);
+	IRDecoderESP32(uint8_t pin);
+	virtual ~IRDecoderESP32(void);
 	
 	bool         begin(uint8_t pin);
 	bool         end(uint8_t pin);
@@ -95,8 +102,6 @@ private:
 	uint32_t     sony_check(rmt_data_t *item, size_t &len);
 	uint32_t     rc5_check(rmt_data_t *item, size_t &len);
 	bool         rc5_bit(uint32_t d, uint32_t v);
-	
 };
 
 #endif
-
